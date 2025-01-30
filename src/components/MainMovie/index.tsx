@@ -63,14 +63,14 @@ const MainMovie: React.FC<MainMovieProps> = ({ title, background }) => {
             <Typography
               component="div"
               sx={{
-                fontFamily: 'Bebas Neue',
+                fontFamily: 'bebas-neue-pro',
                 fontSize: '20px',
                 lineHeight: '20px',
                 letterSpacing: '4px',
                 textAlign: 'left',
                 textUnderlinePosition: 'from-font',
                 textDecorationSkipInk: 'none',
-                color: '#bbb',
+                color: '#fff',
                 textTransform: 'uppercase',
                 fontWeight: 400,
                 strokeWidth: '1px',
@@ -83,11 +83,11 @@ const MainMovie: React.FC<MainMovieProps> = ({ title, background }) => {
               <Typography
                 component="span"
                 sx={{
-                  fontWeight: 'bold',
+                  fontWeight: 600,
                   letterSpacing: '4px',
                   fontSize: '20px',
                   color: '#fff',
-                  fontFamily: 'Bebas Neue'
+                  fontFamily: 'bebas-neue-pro'
                 }}
               >
                 Liteflix
