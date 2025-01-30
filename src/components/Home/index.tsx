@@ -16,11 +16,9 @@ const Home: React.FC = () => {
 
   const movie = data?.results[Math.floor(Math.random() * moviesLenght)];
 
-  console.log(movie, 'movie');
   return (
     <MainMovie
       title={movie.original_title}
-      subtitle={['Original de ', <strong>Liteflix</strong>]}
       background={`${imgPathOriginal}${movie.backdrop_path}`}
     />
   );

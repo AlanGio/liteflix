@@ -36,19 +36,26 @@ const MainMovie: React.FC<MainMovieProps> = ({ title, background }) => {
           background: 'rgba(0, 0, 0, 0.2)',
           zIndex: 10,
           position: 'absolute',
-          height: '90%',
+          height: '100%',
           width: '100%',
-          top: 0,
-          display: 'flex',
-          alignItems: 'flex-end'
+          top: 0
         }}
       >
-        <Box sx={{ p: 6 }}>
+        <Box
+          sx={{
+            p: 10,
+            display: 'flex',
+            alignItems: 'flex-end',
+            justifyContent: 'flex-start',
+            height: '80%',
+            width: '100%'
+          }}
+        >
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center',
+              justifyContent: 'flex-end',
               alignItems: 'flex-start',
               height: '100%'
             }}
@@ -68,7 +75,8 @@ const MainMovie: React.FC<MainMovieProps> = ({ title, background }) => {
                 fontWeight: 400,
                 strokeWidth: '1px',
                 stroke: 'black',
-                mb: 1
+                mb: 1,
+                textShadow: '0 0 50px #000'
               }}
             >
               Original de{' '}
@@ -90,13 +98,14 @@ const MainMovie: React.FC<MainMovieProps> = ({ title, background }) => {
               sx={{
                 fontFamily: 'Bebas Neue',
                 fontSize: '120px',
-                fontWeight: 700,
+                fontWeight: 600,
                 lineHeight: '100px',
                 letterSpacing: '16px',
                 textAlign: 'left',
                 textUnderlinePosition: 'from-font',
                 textDecorationSkipInk: 'none',
-                color: '#64EEBC'
+                color: '#64EEBC',
+                textShadow: '0 0 50px #000'
               }}
             >
               {title}
