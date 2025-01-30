@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
+import Slider from '../Slider';
 
 interface MainMovieProps {
   title: string;
@@ -43,12 +44,11 @@ const MainMovie: React.FC<MainMovieProps> = ({ title, background }) => {
       >
         <Box
           sx={{
-            p: 10,
             display: 'flex',
             alignItems: 'flex-end',
-            justifyContent: 'flex-start',
-            height: '80%',
-            width: '100%'
+            justifyContent: 'space-between',
+            height: '100%',
+            px: '6%'
           }}
         >
           <Box
@@ -57,7 +57,8 @@ const MainMovie: React.FC<MainMovieProps> = ({ title, background }) => {
               flexDirection: 'column',
               justifyContent: 'flex-end',
               alignItems: 'flex-start',
-              height: '100%'
+              height: '100%',
+              mb: '15%'
             }}
           >
             <Typography
@@ -110,6 +111,17 @@ const MainMovie: React.FC<MainMovieProps> = ({ title, background }) => {
             >
               {title}
             </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'flex-start',
+              height: '100%'
+            }}
+          >
+            <Slider />
           </Box>
         </Box>
       </Box>

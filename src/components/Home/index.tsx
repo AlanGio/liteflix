@@ -17,10 +17,12 @@ const Home: React.FC = () => {
   const movie = data?.results[Math.floor(Math.random() * moviesLenght)];
 
   return (
-    <MainMovie
-      title={movie.original_title}
-      background={`${imgPathOriginal}${movie.backdrop_path}`}
-    />
+    <>
+      <MainMovie
+        title={movie.original_title}
+        background={`${imgPathOriginal}${movie.backdrop_path}`}
+      />
+    </>
   );
 };
 

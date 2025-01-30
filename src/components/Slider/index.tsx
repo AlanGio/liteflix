@@ -1,38 +1,123 @@
-import React, { useState } from 'react';
-import './Slider.css';
+import { Box, Typography } from '@mui/material';
+import useAxios from 'axios-hooks';
+import React from 'react';
+import PlayButton from '../../assets/play.svg';
 
-interface SliderProps {
-  min: number;
-  max: number;
-  step?: number;
-  initialValue?: number;
-  onChange?: (value: number) => void;
+interface Movie {
+  id: number;
+  title: string;
+  backdrop_path: string;
+  vote_average: number;
+  release_date: string;
 }
 
-const Slider: React.FC<SliderProps> = ({ min, max, step = 1, initialValue = min, onChange }) => {
-  const [value, setValue] = useState(initialValue);
+const Slider: React.FC = () => {
+  const [{ data, loading, error }] = useAxios(
+    'https://api.themoviedb.org/3/movie/popular?api_key=6f26fd536dd6192ec8a57e94141f8b20'
+  );
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = Number(event.target.value);
-    setValue(newValue);
-    if (onChange) {
-      onChange(newValue);
-    }
-  };
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error!</p>;
 
   return (
-    <div className="slider-container">
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={handleChange}
-        className="slider"
-      />
-      <span className="slider-value">{value}</span>
-    </div>
+    <>
+      <Box
+        component="ul"
+        sx={{
+          display: 'flex',
+          gap: 2,
+          flexDirection: 'column',
+          listStyleType: 'none'
+        }}
+      >
+        {data?.results.slice(0, 4).map((movie: Movie) => (
+          <Box
+            component="li"
+            key={movie.id}
+            sx={{
+              width: 220,
+              height: 146,
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'flex-end',
+              borderRadius: 1,
+              cursor: 'pointer',
+              '&:hover': {
+                transform: 'scale(1.05)',
+                transition: 'all 0.3s ease',
+                '.image': {
+                  boxShadow: 'inset 0 0 0 1000px rgba(0,0,0,.4)'
+                },
+                '.play': {
+                  flexDirection: 'row',
+                  justifyContent: 'flex-start',
+                  p: 2,
+                  gap: 1,
+                  '& img': {
+                    width: 24,
+                    height: 24
+                  }
+                }
+              }
+            }}
+          >
+            <Box
+              className="image"
+              sx={{
+                backgroundImage: `url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`,
+                backgroundSize: 'cover',
+                position: 'absolute',
+                width: '100%',
+                height: '100%'
+              }}
+            />
+            <Box
+              sx={{
+                filter: 'drop-shadow( -5px -5px 5px #000 )',
+                display: 'flex',
+                alignItems: 'flex-end',
+                width: '100%'
+              }}
+            >
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 4,
+                  width: '100%',
+                  mb: 1,
+                  '& img': {
+                    width: 40,
+                    height: 40
+                  }
+                }}
+                className="play"
+              >
+                <img src={PlayButton} alt="Play" />
+                <Typography
+                  variant="h3"
+                  sx={{
+                    fontFamily: 'bebas-neue-pro',
+                    fontSize: 16,
+                    fontWeight: 400,
+                    lineHeight: '16px',
+                    letterSpacing: '2px',
+                    textAlign: 'center',
+                    textTransform: 'uppercase',
+                    color: '#fff',
+                    textShadow: '0 0 20px #000'
+                  }}
+                >
+                  {movie.title}
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        ))}
+      </Box>
+    </>
   );
 };
 
