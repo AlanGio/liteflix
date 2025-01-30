@@ -5,9 +5,14 @@ import Slider from '../Slider';
 interface MainMovieProps {
   title: string;
   background: string;
+  onClickMovie: (id: number) => void;
 }
 
-const MainMovie: React.FC<MainMovieProps> = ({ title, background }) => {
+const MainMovie: React.FC<MainMovieProps> = ({
+  title,
+  background,
+  onClickMovie
+}) => {
   return (
     <>
       <Box
@@ -121,7 +126,7 @@ const MainMovie: React.FC<MainMovieProps> = ({ title, background }) => {
               height: '100%'
             }}
           >
-            <Slider />
+            <Slider onClickMovie={onClickMovie} />
           </Box>
         </Box>
       </Box>

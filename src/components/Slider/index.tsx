@@ -11,13 +11,21 @@ interface Movie {
   release_date: string;
 }
 
-const Slider: React.FC = () => {
+interface SliderProps {
+  onClickMovie: (id: number) => void;
+}
+
+const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
   const [{ data, loading, error }] = useAxios(
-    'https://api.themoviedb.org/3/movie/popular?api_key=6f26fd536dd6192ec8a57e94141f8b20'
+    'https://api.themoviedb.org/3/movie/now_playing?api_key=6f26fd536dd6192ec8a57e94141f8b20'
   );
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
+
+  const handleClickMovie = (id: number) => {
+    onClickMovie(id);
+  };
 
   return (
     <>
@@ -34,13 +42,13 @@ const Slider: React.FC = () => {
           <Box
             component="li"
             key={movie.id}
+            onClick={() => handleClickMovie(movie.id)}
             sx={{
               width: 220,
               height: 146,
               position: 'relative',
               display: 'flex',
               alignItems: 'flex-end',
-              borderRadius: 1,
               cursor: 'pointer',
               '&:hover': {
                 transform: 'scale(1.05)',
@@ -68,7 +76,8 @@ const Slider: React.FC = () => {
                 backgroundSize: 'cover',
                 position: 'absolute',
                 width: '100%',
-                height: '100%'
+                height: '100%',
+                borderRadius: 1
               }}
             />
             <Box
