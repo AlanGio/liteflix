@@ -21,11 +21,7 @@ const Header: React.FC = () => {
         alignItems: 'center',
         justifyContent: 'space-between',
         gap: 6,
-        background: [
-          'linear-gradient(#000, transparent)',
-          'linear-gradient(#000, transparent)',
-          'transparent'
-        ]
+        background: 'linear-gradient(#000, transparent)'
       }}
     >
       <Box
