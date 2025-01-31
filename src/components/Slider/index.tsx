@@ -80,7 +80,8 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
                 position: 'absolute',
                 width: '100%',
                 height: '100%',
-                borderRadius: 1
+                borderRadius: 1,
+                boxShadow: '0px 0px 60px black'
               }}
             />
             <Box sx={{ width: '100%', p: 2 }}>
