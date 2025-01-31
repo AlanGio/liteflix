@@ -25,13 +25,16 @@ const MainMovie: React.FC<MainMovieProps> = ({
   >
     <Box
       sx={{
-        background: `linear-gradient(transparent, #242424), url(${background})`,
+        background: [
+          `linear-gradient(transparent, #242424), no-repeat center/cover url(${background})`,
+          `no-repeat center/cover url(${background})`
+        ],
+        backgroundImage: `url(${background})`,
         width: '100%',
         height: '100%',
         backgroundSize: 'cover',
-        backgroundPosition: 'center center',
         animation: 'shrink 7s infinite alternate',
-        transition: 'all 0.5s ease',
+        transition: 'all 0.5s ease-in',
         '@keyframes shrink': {
           '0%': {
             transform: 'scale(1.05)'
