@@ -146,7 +146,8 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
                       letterSpacing: '2px'
                     }}
                   >
-                    <img src={Star} /> {movie.vote_average}
+                    <img src={Star} />{' '}
+                    {movie.vote_average.toString().substring(0, 3)}
                   </Box>
                   <Typography
                     variant="body1"
