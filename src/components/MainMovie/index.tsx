@@ -168,8 +168,12 @@ const MainMovie: React.FC<MainMovieProps> = ({
                 borderRadius: 0,
                 minWidth: 248,
                 '&:hover': {
-                  backgroundColor: 'rgba(100, 238, 188, 0.7)',
-                  animation: 'pulse 2s infinite'
+                  backgroundColor: 'rgba(100, 238, 188, 0.8)',
+                  animation: 'pulse 2s infinite',
+                  color: '#242424',
+                  '& img': {
+                    filter: 'invert(100%)'
+                  }
                 }
               }}
             >
@@ -193,7 +197,7 @@ const MainMovie: React.FC<MainMovieProps> = ({
                 borderColor: 'rgba(255,255,255,0.5)',
                 borderRadius: 0,
                 '&:hover': {
-                  backgroundColor: '#242424',
+                  backgroundColor: 'rgba(36,36,36,0.8)',
                   animation: 'pulse 2s infinite',
                   borderColor: '#ccc'
                 }
