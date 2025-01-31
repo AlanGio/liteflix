@@ -15,13 +15,17 @@ const Header: React.FC = () => {
         left: 0,
         right: 0,
         zIndex: 1000,
-        px: [1, 10],
-        height: [70, 80],
+        px: [1, 1, 10],
+        height: [70, 70, 80],
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         gap: 6,
-        background: ['linear-gradient(#000, transparent)', 'transparent']
+        background: [
+          'linear-gradient(#000, transparent)',
+          'linear-gradient(#000, transparent)',
+          'transparent'
+        ]
       }}
     >
       <Box
@@ -31,14 +35,14 @@ const Header: React.FC = () => {
           alignItems: 'center',
           flexDirection: 'row',
           justifyContent: 'space-between',
-          width: ['100%', 'auto']
+          width: ['100%', '100%', 'auto']
         }}
       >
         <Typography
           variant="h2"
           sx={{
             fontFamily: 'bebas-neue-pro',
-            fontSize: [28, 34],
+            fontSize: [28, 28, 34],
             fontWeight: 600,
             lineHeight: '34px',
             letterSpacing: '4px',
@@ -46,7 +50,7 @@ const Header: React.FC = () => {
             color: '#64EEBC',
             textTransform: 'uppercase',
             textShadow: '0 0 40px #000',
-            position: ['absolute', 'static'],
+            position: ['absolute', 'absolute', 'static'],
             left: 'calc(50% - 55px)'
           }}
         >
@@ -56,7 +60,7 @@ const Header: React.FC = () => {
             sx={{
               fontFamily: 'bebas-neue-pro',
               fontWeight: 400,
-              fontSize: [28, 34],
+              fontSize: [28, 28, 34],
               lineHeight: '34px',
               letterSpacing: '4px'
             }}
@@ -69,7 +73,7 @@ const Header: React.FC = () => {
           variant="outlined"
           startIcon={<AddIcon />}
           sx={{
-            display: ['none', 'flex'],
+            display: ['none', 'none', 'flex'],
             color: '#fff',
             border: 'none',
             fontFamily: 'bebas-neue-pro',
@@ -84,7 +88,7 @@ const Header: React.FC = () => {
         <IconButton
           aria-label="Menu"
           sx={{
-            display: ['block', 'none'],
+            display: ['block', 'block', 'none'],
             height: 42,
             width: 42,
             p: 0,
@@ -98,7 +102,7 @@ const Header: React.FC = () => {
         <IconButton
           aria-label="Menu"
           sx={{
-            display: ['none', 'block'],
+            display: ['none', 'none', 'block'],
             height: 42,
             '&:hover': {
               backgroundColor: 'rgba(100, 238, 188, 0.4)',
@@ -111,7 +115,7 @@ const Header: React.FC = () => {
         <IconButton
           aria-label="Notifications"
           sx={{
-            display: ['none', 'block'],
+            display: ['none', 'none', 'block'],
             '&:hover': {
               backgroundColor: 'rgba(100, 238, 188, 0.4)',
               animation: 'pulse 2s infinite'
@@ -124,7 +128,7 @@ const Header: React.FC = () => {
         <Avatar
           src="https://github.com/user-attachments/assets/fe658aa8-b74a-46c8-98ef-6063378638d1"
           sx={{
-            position: ['absolute', 'static'],
+            position: ['absolute', 'absolute', 'static'],
             right: 16
           }}
         />
