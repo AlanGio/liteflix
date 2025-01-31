@@ -20,7 +20,7 @@ const MainMovie: React.FC<MainMovieProps> = ({
     sx={{
       position: 'relative',
       height: '100vh',
-      animation: 'fadeIn 3s'
+      animation: 'fadeIn 0.5s'
     }}
   >
     <Box
