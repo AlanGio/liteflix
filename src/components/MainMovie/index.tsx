@@ -1,6 +1,9 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
 import Slider from '../Slider';
+
+import Play from '../../assets/playtriangle.svg';
+import Plus from '../../assets/plus.svg';
 
 interface MainMovieProps {
   title: string;
@@ -81,7 +84,7 @@ const MainMovie: React.FC<MainMovieProps> = ({
                 fontWeight: 400,
                 strokeWidth: '1px',
                 stroke: 'black',
-                mb: 1,
+                mb: 2,
                 textShadow: '0 0 50px #000'
               }}
             >
@@ -116,6 +119,57 @@ const MainMovie: React.FC<MainMovieProps> = ({
             >
               {title}
             </Typography>
+            <Box sx={{ display: 'flex', gap: 3, mt: 4 }}>
+              <Button
+                variant="contained"
+                startIcon={<img src={Play} />}
+                sx={{
+                  color: 'white',
+                  height: 56,
+                  px: 4,
+                  fontFamily: 'Bebas Neue',
+                  fontSize: '18px',
+                  fontWeight: 400,
+                  lineHeight: '21.6px',
+                  letterSpacing: '4px',
+                  backgroundColor: '#242424',
+                  borderRadius: 0,
+                  minWidth: 248,
+                  '&:hover': {
+                    backgroundColor: 'rgba(100, 238, 188, 0.7)',
+                    animation: 'pulse 2s infinite'
+                  }
+                }}
+              >
+                Reproducir
+              </Button>
+              <Button
+                variant="outlined"
+                startIcon={<img src={Plus} />}
+                sx={{
+                  color: 'white',
+                  height: 56,
+                  px: 4,
+                  fontFamily: 'Bebas Neue',
+                  fontSize: '18px',
+                  fontWeight: 400,
+                  minWidth: 248,
+                  lineHeight: '21.6px',
+                  letterSpacing: '4px',
+                  backgroundColor: 'rgba(36,36,36,0.5)',
+                  border: '1px solid',
+                  borderColor: 'rgba(255,255,255,0.5)',
+                  borderRadius: 0,
+                  '&:hover': {
+                    backgroundColor: '#242424',
+                    animation: 'pulse 2s infinite',
+                    borderColor: '#ccc'
+                  }
+                }}
+              >
+                Mi Lista
+              </Button>
+            </Box>
           </Box>
           <Box
             sx={{
