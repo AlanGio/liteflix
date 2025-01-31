@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 import React from 'react';
 import Slider from '../Slider';
 
@@ -56,7 +56,9 @@ const MainMovie: React.FC<MainMovieProps> = ({
         position: 'absolute',
         height: '100%',
         width: '100%',
-        top: 0
+        top: 0,
+        display: 'flex',
+        justifyContent: 'center'
       }}
     >
       <Box
@@ -66,7 +68,9 @@ const MainMovie: React.FC<MainMovieProps> = ({
           alignItems: ['center', 'center', 'flex-end'],
           justifyContent: 'space-between',
           height: '100%',
-          px: '6%'
+          width: '100%',
+          px: '6%',
+          maxWidth: 1600
         }}
       >
         <Box
@@ -81,6 +85,7 @@ const MainMovie: React.FC<MainMovieProps> = ({
             mt: ['210px', '210px', 0],
             animation: 'fadeIn 1s',
             transition: 'all 0.5s ease-in',
+            mr: [0, 0, 6],
             '@keyframes fadeIn': {
               '0%': {
                 opacity: 0
@@ -133,7 +138,8 @@ const MainMovie: React.FC<MainMovieProps> = ({
               lineHeight: ['77px', '77px', '100px'],
               letterSpacing: [12, 12, 16],
               color: '#64EEBC',
-              textShadow: '0 0 50px #000'
+              textShadow: '0 0 50px #000',
+              textAlign: ['center', 'center', 'left']
             }}
           >
             {title}
