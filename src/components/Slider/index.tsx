@@ -36,7 +36,8 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
           display: 'flex',
           gap: 2,
           flexDirection: 'column',
-          listStyleType: 'none'
+          listStyleType: 'none',
+          padding: 0
         }}
       >
         {data?.results.slice(0, 4).map((movie: Movie) => (
@@ -45,8 +46,8 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
             key={movie.id}
             onClick={() => handleClickMovie(movie.id)}
             sx={{
-              width: 220,
-              height: 146,
+              width: [327, 220],
+              height: [172, 146],
               position: 'relative',
               display: 'flex',
               alignItems: 'flex-end',

@@ -25,7 +25,7 @@ const MainMovie: React.FC<MainMovieProps> = ({
   >
     <Box
       sx={{
-        backgroundImage: `url(${background})`,
+        background: `linear-gradient(transparent, #242424), url(${background})`,
         width: '100%',
         height: '100%',
         backgroundSize: 'cover',
@@ -41,7 +41,7 @@ const MainMovie: React.FC<MainMovieProps> = ({
           }
         },
         position: 'relative',
-        boxShadow: 'inset 0 0 400px 40px #000',
+        boxShadow: ['none', 'inset 0 0 400px 40px #000'],
         zIndex: 0
       }}
     />
@@ -59,7 +59,8 @@ const MainMovie: React.FC<MainMovieProps> = ({
       <Box
         sx={{
           display: 'flex',
-          alignItems: 'flex-end',
+          flexDirection: ['column', 'row'],
+          alignItems: ['center', 'flex-end'],
           justifyContent: 'space-between',
           height: '100%',
           px: '6%'
@@ -71,9 +72,10 @@ const MainMovie: React.FC<MainMovieProps> = ({
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-end',
-            alignItems: 'flex-start',
+            alignItems: ['center', 'flex-start'],
             height: '100%',
             mb: '15%',
+            mt: ['210px', 0],
             animation: 'fadeIn 1s',
             transition: 'all 0.5s ease-in',
             '@keyframes fadeIn': {
@@ -123,20 +125,24 @@ const MainMovie: React.FC<MainMovieProps> = ({
             variant="h1"
             sx={{
               fontFamily: 'Bebas Neue',
-              fontSize: '120px',
+              fontSize: [76, 120],
               fontWeight: 600,
-              lineHeight: '100px',
-              letterSpacing: '16px',
-              textAlign: 'left',
-              textUnderlinePosition: 'from-font',
-              textDecorationSkipInk: 'none',
+              lineHeight: ['77px', '100px'],
+              letterSpacing: [12, 16],
               color: '#64EEBC',
               textShadow: '0 0 50px #000'
             }}
           >
             {title}
           </Typography>
-          <Box sx={{ display: 'flex', gap: 3, mt: 4 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: ['column', 'row'],
+              gap: 3,
+              mt: 4
+            }}
+          >
             <Button
               variant="contained"
               startIcon={<img src={Play} />}
@@ -194,7 +200,8 @@ const MainMovie: React.FC<MainMovieProps> = ({
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'flex-start',
-            height: '100%'
+            height: '100%',
+            mt: [6, 0]
           }}
         >
           <Slider onClickMovie={onClickMovie} />

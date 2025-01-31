@@ -1,8 +1,7 @@
 @import url('https://use.typekit.net/sve4ojm.css');
 
 html {
-  background-color: #f9f9f9;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 :root {
   font-family: 'bebas-neue-pro', sans-serif;
@@ -62,7 +61,7 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: #242424;
   }
   a:hover {
     color: #747bff;
