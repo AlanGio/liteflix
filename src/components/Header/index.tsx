@@ -11,12 +11,12 @@ const Header: React.FC = () => {
       component={'header'}
       sx={{
         position: 'fixed',
-        top: 2,
+        top: 0,
         left: 0,
         right: 0,
         zIndex: 1000,
         px: [1, 10],
-        height: 80,
+        height: [70, 80],
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',

@@ -37,7 +37,8 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
           gap: 2,
           flexDirection: 'column',
           listStyleType: 'none',
-          padding: 0
+          p: 0,
+          pb: [6, 0]
         }}
       >
         {data?.results.slice(0, 4).map((movie: Movie) => (
