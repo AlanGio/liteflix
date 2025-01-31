@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import useAxios from 'axios-hooks';
 import React from 'react';
 import PlayButton from '../../assets/play.svg';
