@@ -25,7 +25,8 @@ const MainMovie: React.FC<MainMovieProps> = ({
           height: '100%',
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
-          animation: 'shrink 5s infinite alternate',
+          animation: 'shrink 7s infinite alternate',
+          transition: 'all 0.5s ease-in',
           '@keyframes shrink': {
             '0%': {
               transform: 'scale(1.05)'
@@ -60,13 +61,24 @@ const MainMovie: React.FC<MainMovieProps> = ({
           }}
         >
           <Box
+            key={title}
             sx={{
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'flex-end',
               alignItems: 'flex-start',
               height: '100%',
-              mb: '15%'
+              mb: '15%',
+              animation: 'fadeIn 1s',
+              transition: 'all 0.5s ease-in',
+              '@keyframes fadeIn': {
+                '0%': {
+                  opacity: 0
+                },
+                '100%': {
+                  opacity: 1
+                }
+              }
             }}
           >
             <Typography

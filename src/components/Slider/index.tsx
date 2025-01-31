@@ -1,7 +1,8 @@
-import { Box, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import useAxios from 'axios-hooks';
 import React from 'react';
 import PlayButton from '../../assets/play.svg';
+import Star from '../../assets/star.svg';
 
 interface Movie {
   id: number;
@@ -59,12 +60,14 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
                 '.play': {
                   flexDirection: 'row',
                   justifyContent: 'flex-start',
-                  p: 2,
                   gap: 1,
                   '& img': {
                     width: 24,
                     height: 24
                   }
+                },
+                '.rating': {
+                  display: 'flex'
                 }
               }
             }}
@@ -80,47 +83,79 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
                 borderRadius: 1
               }}
             />
-            <Box
-              sx={{
-                filter: 'drop-shadow( -5px -5px 5px #000 )',
-                display: 'flex',
-                alignItems: 'flex-end',
-                width: '100%'
-              }}
-            >
+            <Box sx={{ width: '100%', p: 2 }}>
               <Box
                 sx={{
+                  filter: 'drop-shadow( -5px -5px 5px #000 )',
                   display: 'flex',
                   flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 4,
-                  width: '100%',
-                  mb: 1,
-                  '& img': {
-                    width: 40,
-                    height: 40
-                  }
+                  alignItems: 'flex-end',
+                  width: '100%'
                 }}
-                className="play"
               >
-                <img src={PlayButton} alt="Play" />
-                <Typography
-                  variant="h3"
+                <Box
                   sx={{
-                    fontFamily: 'bebas-neue-pro',
-                    fontSize: 16,
-                    fontWeight: 400,
-                    lineHeight: '16px',
-                    letterSpacing: '2px',
-                    textAlign: 'center',
-                    textTransform: 'uppercase',
-                    color: '#fff',
-                    textShadow: '0 0 20px #000'
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 4,
+                    width: '100%',
+                    mb: 1,
+                    '& img': {
+                      width: 40,
+                      height: 40
+                    }
                   }}
+                  className="play"
                 >
-                  {movie.title}
-                </Typography>
+                  <img src={PlayButton} alt="Play" />
+                  <Typography
+                    variant="h3"
+                    sx={{
+                      fontFamily: 'bebas-neue-pro',
+                      fontSize: 16,
+                      fontWeight: 400,
+                      lineHeight: '16px',
+                      letterSpacing: '2px',
+                      textAlign: 'center',
+                      textTransform: 'uppercase',
+                      color: '#fff',
+                      textShadow: '0 0 20px #000'
+                    }}
+                  >
+                    {movie.title}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: 'none',
+                    gap: 1,
+                    justifyContent: 'space-between',
+                    width: '100%',
+                    mt: 2
+                  }}
+                  className="rating"
+                >
+                  <Box
+                    sx={{
+                      color: 'white',
+                      letterSpacing: '2px'
+                    }}
+                  >
+                    <img src={Star} /> {movie.vote_average}
+                  </Box>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: 'white',
+                      fontFamily: 'bebas-neue-pro',
+                      letterSpacing: '2px'
+                    }}
+                  >
+                    {movie.release_date.substring(0, 4)}
+                  </Typography>
+                </Box>
               </Box>
             </Box>
           </Box>
