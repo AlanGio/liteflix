@@ -132,7 +132,7 @@ const MainMovie: React.FC<MainMovieProps> = ({
           <Typography
             variant="h1"
             sx={{
-              fontFamily: 'Bebas Neue',
+              fontFamily: 'bebas-neue-pro',
               fontSize: [76, 76, 120],
               fontWeight: 600,
               lineHeight: ['77px', '77px', '100px'],
@@ -159,7 +159,7 @@ const MainMovie: React.FC<MainMovieProps> = ({
                 color: 'white',
                 height: 56,
                 px: 4,
-                fontFamily: 'Bebas Neue',
+                fontFamily: 'bebas-neue-pro',
                 fontSize: '18px',
                 fontWeight: 400,
                 lineHeight: '21.6px',
@@ -186,7 +186,7 @@ const MainMovie: React.FC<MainMovieProps> = ({
                 color: 'white',
                 height: 56,
                 px: 4,
-                fontFamily: 'Bebas Neue',
+                fontFamily: 'bebas-neue-pro',
                 fontSize: '18px',
                 fontWeight: 400,
                 minWidth: 248,

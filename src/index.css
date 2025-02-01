@@ -5,6 +5,7 @@ html {
 }
 :root {
   font-family: 'bebas-neue-pro', sans-serif;
+  text-transform: uppercase;
   font-weight: 400;
   font-style: normal;
   color-scheme: light dark;
