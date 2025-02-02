@@ -1,9 +1,9 @@
-import { Avatar, Box, Button, IconButton, Typography } from '@mui/material';
+import { Avatar, Box, IconButton, Typography } from '@mui/material';
 import React from 'react';
-import AddIcon from '@mui/icons-material/Add';
 import Menu from '../../assets/menu.svg';
 import AddMobile from '../../assets/add-mobile.svg';
 import Notification from '../../assets/notif.svg';
+import UploadModal from '../UploadModal';
 
 const Header: React.FC = () => {
   return (
@@ -65,22 +65,8 @@ const Header: React.FC = () => {
           </Typography>
         </Typography>
 
-        <Button
-          variant="outlined"
-          startIcon={<AddIcon />}
-          sx={{
-            display: ['none', 'none', 'flex'],
-            color: '#fff',
-            border: 'none',
-            fontFamily: 'bebas-neue-pro',
-            fontSize: '18px',
-            fontWeight: 700,
-            lineHeight: '18px',
-            letterSpacing: '4px'
-          }}
-        >
-          Agregar Pelicula
-        </Button>
+        <UploadModal />
+
         <IconButton
           aria-label="Menu"
           sx={{

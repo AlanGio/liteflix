@@ -27,6 +27,8 @@ a:hover {
 }
 
 body {
+  font-family: 'bebas-neue-pro', sans-serif;
+  text-transform: uppercase;
   margin: 0;
   display: flex;
   place-items: center;
