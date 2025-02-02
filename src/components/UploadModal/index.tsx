@@ -77,7 +77,6 @@ export default function UploadModal() {
   const [file, setFile] = useState<string | null>(null);
   const [title, setTitle] = useState<string | null>(null);
   const [formValid, setFormValid] = useState<boolean>(false);
-
   const [file64, setFile64] = useState<string | null>(null);
   const [progress, setProgress] = React.useState(10);
 
@@ -113,6 +112,7 @@ export default function UploadModal() {
       setFile(file.name);
     });
   }, []);
+
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     multiple: false
@@ -135,9 +135,6 @@ export default function UploadModal() {
       setFormValid(false);
     }
   }, [title, file64]);
-
-  console.log(formValid, 'formValid!!!!');
-  console.log(data, 'data!!!!');
 
   return (
     <div>
