@@ -1,7 +1,6 @@
 import { Avatar, Box, IconButton, Typography } from '@mui/material';
 import React from 'react';
 import Menu from '../../assets/menu.svg';
-import AddMobile from '../../assets/add-mobile.svg';
 import Notification from '../../assets/notif.svg';
 import UploadModal from '../UploadModal';
 
@@ -66,19 +65,6 @@ const Header: React.FC = () => {
         </Typography>
 
         <UploadModal />
-
-        <IconButton
-          aria-label="Menu"
-          sx={{
-            display: ['block', 'block', 'none'],
-            height: 42,
-            width: 42,
-            p: 0,
-            color: 'white'
-          }}
-        >
-          <img src={AddMobile} />
-        </IconButton>
       </Box>
       <Box sx={{ display: 'flex', gap: 4, alignItems: 'center' }}>
         <IconButton

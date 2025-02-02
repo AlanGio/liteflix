@@ -1,8 +1,76 @@
 import * as React from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import { Button, Modal, Box, Typography, TextField } from '@mui/material';
+import AddMobile from '../../assets/add-mobile.svg';
+import {
+  Button,
+  Modal,
+  Box,
+  Typography,
+  TextField,
+  IconButton,
+  LinearProgress,
+  LinearProgressProps
+} from '@mui/material';
 import { useDropzone } from 'react-dropzone';
 import { useEffect, useState } from 'react';
+import useAxios from 'axios-hooks';
+
+async function getBase64(
+  file: File,
+  callback: (
+    error: ProgressEvent<FileReader> | null,
+    result?: string | ArrayBuffer | null
+  ) => void
+) {
+  const reader = new FileReader();
+  reader.onload = () => callback(null, reader.result);
+  reader.onerror = (error) => callback(error);
+  reader.readAsDataURL(file);
+}
+
+function LinearProgressWithLabel(
+  props: LinearProgressProps & { value: number }
+) {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        flexDirection: 'column',
+        gap: 2
+      }}
+    >
+      <Box sx={{ minWidth: 35 }}>
+        <Typography
+          variant="body2"
+          sx={{ color: 'white', fontFamily: 'bebas-neue-pro', fontSize: 16 }}
+        >{`Cargando ${Math.round(props.value)}%`}</Typography>
+      </Box>
+      <Box sx={{ width: '100%', mr: 1 }}>
+        <LinearProgress
+          variant="determinate"
+          sx={{
+            '&.MuiLinearProgress-root': {
+              overflow: 'hidden',
+              backgroundImage: 'linear-gradient(#ccc, #ccc)',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: '100% 2px',
+              backgroundPosition: '0 center',
+              backgroundColor: '#000',
+              height: 8
+            },
+            '& .MuiLinearProgress-bar': {
+              backgroundColor: '#64EEBC',
+              border: '4px solid #64EEBC',
+              top: -2
+            }
+          }}
+          {...props}
+        />
+      </Box>
+    </Box>
+  );
+}
 
 export default function UploadModal() {
   const [open, setOpen] = useState(false);
@@ -10,27 +78,34 @@ export default function UploadModal() {
   const [title, setTitle] = useState<string | null>(null);
   const [formValid, setFormValid] = useState<boolean>(false);
 
-  const [file64, setFile64] = React.useState<string | null>(null);
-  const [form, setForm] = React.useState<{
-    title: string;
-    image: string;
-  } | null>();
+  const [file64, setFile64] = useState<string | null>(null);
+  const [progress, setProgress] = React.useState(10);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prevProgress) =>
+        prevProgress >= 100 ? 100 : prevProgress + 10
+      );
+    }, 800);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  const [{ data, loading }, sendForm] = useAxios(
+    {
+      url: '//liteflix-5afefe60246f.herokuapp.com/movies',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Access-Control-Allow-Origin': '*'
+      }
+    },
+    { manual: true }
+  );
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  async function getBase64(
-    file: File,
-    callback: (
-      error: ProgressEvent<FileReader> | null,
-      result?: string | ArrayBuffer | null
-    ) => void
-  ) {
-    const reader = new FileReader();
-    reader.onload = () => callback(null, reader.result);
-    reader.onerror = (error) => callback(error);
-    reader.readAsDataURL(file);
-  }
 
   const onDrop = React.useCallback((acceptedFiles: File[]) => {
     acceptedFiles.forEach((file: File) => {
@@ -44,21 +119,25 @@ export default function UploadModal() {
   });
 
   const handleSubmit = () => {
-    setForm({
-      title: title || '',
-      image: file64 || ''
+    sendForm({
+      data: {
+        title: title || '',
+        image: file64 || ''
+      }
     });
   };
 
   useEffect(() => {
-    if (title !== '' && file64 !== '') {
+    if (title && title.length > 0 && file64 && file64.length > 0) {
+      console.log(title, file64, 'wtf');
       setFormValid(true);
     } else {
       setFormValid(false);
     }
   }, [title, file64]);
 
-  console.log(formValid);
+  console.log(formValid, 'formValid!!!!');
+  console.log(data, 'data!!!!');
 
   return (
     <div>
@@ -84,6 +163,19 @@ export default function UploadModal() {
       >
         Agregar Pelicula
       </Button>
+      <IconButton
+        aria-label="Menu"
+        onClick={handleOpen}
+        sx={{
+          display: ['block', 'block', 'none'],
+          height: 42,
+          width: 42,
+          p: 0,
+          color: 'white'
+        }}
+      >
+        <img src={AddMobile} />
+      </IconButton>
       <Modal
         open={open}
         onClose={handleClose}
@@ -108,60 +200,84 @@ export default function UploadModal() {
             width: ['90%', '90%', '60%']
           }}
         >
-          <Typography
-            variant="h6"
-            component="h2"
-            sx={{
-              fontFamily: 'bebas-neue-pro',
-              fontSize: '20px',
-              fontWeight: 700,
-              lineHeight: '20px',
-              letterSpacing: '4px',
-              color: '#64EEBC'
-            }}
-          >
-            agregar película
-          </Typography>
+          {!loading ? (
+            <>
+              <Typography
+                variant="h6"
+                component="h2"
+                sx={{
+                  fontFamily: 'bebas-neue-pro',
+                  fontSize: '20px',
+                  fontWeight: 700,
+                  lineHeight: '20px',
+                  letterSpacing: '4px',
+                  color: '#64EEBC'
+                }}
+              >
+                agregar película
+              </Typography>
 
-          <Box
-            {...getRootProps()}
-            sx={{
-              px: 12,
-              py: 5,
-              border: '1px dashed #fff',
-              textAlign: 'center',
-              '&:hover': {
-                border: '2px dashed #ccc',
-                animation: 'pulse 2s infinite'
-              }
-            }}
-          >
-            <input {...getInputProps()} />
-            <Typography
-              sx={{
-                fontFamily: 'bebas-neue-pro',
-                fontSize: 16,
-                fontWeight: 700,
-                lineHeight: '16px',
-                letterSpacing: '4px'
-              }}
-            >
-              Agregá un archivo o arrastralo y soltalo aquí
-            </Typography>
-          </Box>
+              <Box
+                {...getRootProps()}
+                sx={{
+                  px: 12,
+                  py: 5,
+                  border: '1px dashed #fff',
+                  textAlign: 'center',
+                  '&:hover': {
+                    border: '2px dashed #ccc',
+                    animation: 'pulse 2s infinite'
+                  }
+                }}
+              >
+                <input {...getInputProps()} />
+                <Typography
+                  sx={{
+                    fontFamily: 'bebas-neue-pro',
+                    fontSize: 16,
+                    fontWeight: 700,
+                    lineHeight: '16px',
+                    letterSpacing: '4px'
+                  }}
+                >
+                  Agregá un archivo o arrastralo y soltalo aquí
+                </Typography>
+              </Box>
 
-          {file && (
-            <Typography
-              sx={{
-                fontFamily: 'bebas-neue-pro',
-                fontSize: 16,
-                fontWeight: 700,
-                lineHeight: '16px',
-                letterSpacing: '4px'
-              }}
-            >
-              {file}
-            </Typography>
+              {file && (
+                <Typography
+                  sx={{
+                    fontFamily: 'bebas-neue-pro',
+                    fontSize: 16,
+                    fontWeight: 700,
+                    lineHeight: '16px',
+                    letterSpacing: '4px'
+                  }}
+                >
+                  {file}
+                </Typography>
+              )}
+            </>
+          ) : (
+            <>
+              <Typography
+                variant="h6"
+                component="h2"
+                sx={{
+                  fontFamily: 'bebas-neue-pro',
+                  fontSize: '20px',
+                  fontWeight: 700,
+                  lineHeight: '20px',
+                  letterSpacing: '4px',
+                  color: '#64EEBC'
+                }}
+              >
+                agregar película
+              </Typography>
+              <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={progress} />
+              </Box>
+            </>
           )}
 
           <TextField
@@ -170,6 +286,7 @@ export default function UploadModal() {
             placeholder='Ej: "El Padrino"'
             slotProps={{ input: { style: { color: 'white' } } }}
             onChange={(e) => setTitle(e.target.value)}
+            disabled={loading}
             sx={{
               fontFamily: 'bebas-neue-pro',
               '& .MuiFormLabel-root': {
@@ -215,7 +332,7 @@ export default function UploadModal() {
                 backgroundColor: '#ccc'
               }
             }}
-            disabled={!formValid}
+            disabled={!formValid || loading}
             onClick={handleSubmit}
           >
             Subir Pelicula
