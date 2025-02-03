@@ -78,12 +78,13 @@ export default function UploadModal() {
   const [title, setTitle] = useState<string | null>(null);
   const [formValid, setFormValid] = useState<boolean>(false);
   const [file64, setFile64] = useState<string | null>(null);
-  const [progress, setProgress] = React.useState(10);
+  const [progress, setProgress] = useState<number>(1);
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prevProgress) =>
-        prevProgress >= 100 ? 100 : prevProgress + 10
+        prevProgress >= 100 ? 10 : prevProgress + 10
       );
     }, 800);
     return () => {
@@ -104,7 +105,13 @@ export default function UploadModal() {
   );
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setShowSuccess(false);
+    setFile(null);
+    setFormValid(false);
+    setFile64(null);
+  };
 
   const onDrop = React.useCallback((acceptedFiles: File[]) => {
     acceptedFiles.forEach((file: File) => {
@@ -129,12 +136,17 @@ export default function UploadModal() {
 
   useEffect(() => {
     if (title && title.length > 0 && file64 && file64.length > 0) {
-      console.log(title, file64, 'wtf');
       setFormValid(true);
     } else {
       setFormValid(false);
     }
   }, [title, file64]);
+
+  useEffect(() => {
+    if (data?.insertedId) {
+      setShowSuccess(true);
+    }
+  }, [data]);
 
   return (
     <div>
@@ -197,8 +209,48 @@ export default function UploadModal() {
             width: ['90%', '90%', '60%']
           }}
         >
-          {!loading ? (
+          {showSuccess ? (
             <>
+              <Typography
+                variant="h2"
+                sx={{
+                  fontFamily: 'bebas-neue-pro',
+                  fontSize: 34,
+                  fontWeight: 600,
+                  lineHeight: '34px',
+                  letterSpacing: '4px',
+                  textAlign: 'left',
+                  color: '#64EEBC'
+                }}
+              >
+                Lite
+                <Typography
+                  component="span"
+                  sx={{
+                    fontFamily: 'bebas-neue-pro',
+                    fontWeight: 400,
+                    fontSize: 34,
+                    lineHeight: '34px',
+                    letterSpacing: '4px'
+                  }}
+                >
+                  flix
+                </Typography>
+              </Typography>
+              <Typography
+                variant="h6"
+                component="h2"
+                sx={{
+                  fontFamily: 'bebas-neue-pro',
+                  fontSize: '24px',
+                  fontWeight: 700,
+                  lineHeight: '20px',
+                  letterSpacing: '4px',
+                  color: '#fff'
+                }}
+              >
+                ¡Felicitaciones!
+              </Typography>
               <Typography
                 variant="h6"
                 component="h2"
@@ -208,132 +260,176 @@ export default function UploadModal() {
                   fontWeight: 700,
                   lineHeight: '20px',
                   letterSpacing: '4px',
-                  color: '#64EEBC'
+                  color: '#fff'
                 }}
               >
-                agregar película
+                Liteflix The Movie fue correctamente subida.
               </Typography>
-
-              <Box
-                {...getRootProps()}
+              <Button
+                variant="contained"
                 sx={{
-                  px: 12,
-                  py: 5,
-                  border: '1px dashed #fff',
-                  textAlign: 'center',
+                  color: 'black',
+                  height: 56,
+                  px: 4,
+                  fontFamily: 'bebas-neue-pro',
+                  fontSize: '18px',
+                  fontWeight: 400,
+                  minWidth: 248,
+                  lineHeight: '21.6px',
+                  letterSpacing: '4px',
+                  backgroundColor: '#fff',
+                  borderRadius: 0,
                   '&:hover': {
-                    border: '2px dashed #ccc',
-                    animation: 'pulse 2s infinite'
+                    animation: 'pulse 2s infinite',
+                    backgroundColor: '#ccc'
                   }
                 }}
+                onClick={handleClose}
               >
-                <input {...getInputProps()} />
-                <Typography
-                  sx={{
-                    fontFamily: 'bebas-neue-pro',
-                    fontSize: 16,
-                    fontWeight: 700,
-                    lineHeight: '16px',
-                    letterSpacing: '4px'
-                  }}
-                >
-                  Agregá un archivo o arrastralo y soltalo aquí
-                </Typography>
-              </Box>
-
-              {file && (
-                <Typography
-                  sx={{
-                    fontFamily: 'bebas-neue-pro',
-                    fontSize: 16,
-                    fontWeight: 700,
-                    lineHeight: '16px',
-                    letterSpacing: '4px'
-                  }}
-                >
-                  {file}
-                </Typography>
-              )}
+                Ir a la Home
+              </Button>
             </>
           ) : (
             <>
-              <Typography
-                variant="h6"
-                component="h2"
+              {!loading ? (
+                <>
+                  <Typography
+                    variant="h6"
+                    component="h2"
+                    sx={{
+                      fontFamily: 'bebas-neue-pro',
+                      fontSize: '20px',
+                      fontWeight: 700,
+                      lineHeight: '20px',
+                      letterSpacing: '4px',
+                      color: '#64EEBC'
+                    }}
+                  >
+                    agregar película
+                  </Typography>
+
+                  <Box
+                    {...getRootProps()}
+                    sx={{
+                      px: 12,
+                      py: 5,
+                      border: '1px dashed #fff',
+                      textAlign: 'center',
+                      '&:hover': {
+                        border: '2px dashed #ccc',
+                        animation: 'pulse 2s infinite'
+                      }
+                    }}
+                  >
+                    <input {...getInputProps()} />
+                    <Typography
+                      sx={{
+                        fontFamily: 'bebas-neue-pro',
+                        fontSize: 16,
+                        fontWeight: 700,
+                        lineHeight: '16px',
+                        letterSpacing: '4px'
+                      }}
+                    >
+                      Agregá un archivo o arrastralo y soltalo aquí
+                    </Typography>
+                  </Box>
+
+                  {file && (
+                    <Typography
+                      sx={{
+                        fontFamily: 'bebas-neue-pro',
+                        fontSize: 16,
+                        fontWeight: 700,
+                        lineHeight: '16px',
+                        letterSpacing: '4px'
+                      }}
+                    >
+                      {file}
+                    </Typography>
+                  )}
+                </>
+              ) : (
+                <>
+                  <Typography
+                    variant="h6"
+                    component="h2"
+                    sx={{
+                      fontFamily: 'bebas-neue-pro',
+                      fontSize: '20px',
+                      fontWeight: 700,
+                      lineHeight: '20px',
+                      letterSpacing: '4px',
+                      color: '#64EEBC'
+                    }}
+                  >
+                    agregar película
+                  </Typography>
+                  <Box sx={{ width: '100%' }}>
+                    <LinearProgressWithLabel value={progress} />
+                  </Box>
+                </>
+              )}
+
+              <TextField
+                label="Titulo"
+                variant="standard"
+                placeholder='Ej: "El Padrino"'
+                slotProps={{ input: { style: { color: 'white' } } }}
+                onChange={(e) => setTitle(e.target.value)}
+                disabled={loading}
                 sx={{
                   fontFamily: 'bebas-neue-pro',
-                  fontSize: '20px',
-                  fontWeight: 700,
-                  lineHeight: '20px',
-                  letterSpacing: '4px',
-                  color: '#64EEBC'
+                  '& .MuiFormLabel-root': {
+                    fontFamily: 'bebas-neue-pro',
+                    fontSize: '16px',
+                    color: 'white',
+                    display: 'block',
+                    width: '100%',
+                    '&.Mui-focused': {
+                      color: 'white',
+                      display: 'block',
+                      width: '100%'
+                    }
+                  },
+                  textAlign: 'center',
+                  '&::placeholder': {
+                    color: 'white'
+                  },
+                  color: 'white',
+                  borderBottom: '1px solid white'
                 }}
+              />
+
+              <Button
+                variant="contained"
+                sx={{
+                  color: 'black',
+                  height: 56,
+                  px: 4,
+                  fontFamily: 'bebas-neue-pro',
+                  fontSize: '18px',
+                  fontWeight: 400,
+                  minWidth: 248,
+                  lineHeight: '21.6px',
+                  letterSpacing: '4px',
+                  backgroundColor: '#fff',
+                  borderRadius: 0,
+                  '&:hover': {
+                    animation: 'pulse 2s infinite',
+                    backgroundColor: '#ccc'
+                  },
+                  '&:disabled': {
+                    backgroundColor: '#ccc'
+                  }
+                }}
+                disabled={!formValid || loading}
+                onClick={handleSubmit}
               >
-                agregar película
-              </Typography>
-              <Box sx={{ width: '100%' }}>
-                <LinearProgressWithLabel value={progress} />
-              </Box>
+                Subir Pelicula
+              </Button>
             </>
           )}
-
-          <TextField
-            label="Titulo"
-            variant="standard"
-            placeholder='Ej: "El Padrino"'
-            slotProps={{ input: { style: { color: 'white' } } }}
-            onChange={(e) => setTitle(e.target.value)}
-            disabled={loading}
-            sx={{
-              fontFamily: 'bebas-neue-pro',
-              '& .MuiFormLabel-root': {
-                fontFamily: 'bebas-neue-pro',
-                fontSize: '16px',
-                color: 'white',
-                display: 'block',
-                width: '100%',
-                '&.Mui-focused': {
-                  color: 'white',
-                  display: 'block',
-                  width: '100%'
-                }
-              },
-              textAlign: 'center',
-              '&::placeholder': {
-                color: 'white'
-              },
-              color: 'white',
-              borderBottom: '1px solid white'
-            }}
-          />
-
-          <Button
-            variant="contained"
-            sx={{
-              color: 'black',
-              height: 56,
-              px: 4,
-              fontFamily: 'bebas-neue-pro',
-              fontSize: '18px',
-              fontWeight: 400,
-              minWidth: 248,
-              lineHeight: '21.6px',
-              letterSpacing: '4px',
-              backgroundColor: '#fff',
-              borderRadius: 0,
-              '&:hover': {
-                animation: 'pulse 2s infinite',
-                backgroundColor: '#ccc'
-              },
-              '&:disabled': {
-                backgroundColor: '#ccc'
-              }
-            }}
-            disabled={!formValid || loading}
-            onClick={handleSubmit}
-          >
-            Subir Pelicula
-          </Button>
         </Box>
       </Modal>
     </div>
