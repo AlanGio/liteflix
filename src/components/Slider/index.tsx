@@ -72,6 +72,25 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
             value={category.toString()}
             onChange={handleChange}
             fullWidth
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  backgroundColor: 'rgba(0,0,0,.5)',
+                  color: '#fff',
+                  '& .MuiButtonBase-root': {
+                    fontFamily: 'bebas-neue-pro',
+                    fontSize: 18,
+                    fontWeight: 600,
+                    lineHeight: '18px',
+                    letterSpacing: '4px',
+                    py: 2,
+                    ':hover': {
+                      backgroundColor: 'rgba(0,0,0,.5)'
+                    }
+                  }
+                }
+              }
+            }}
             sx={{
               color: '#fff',
               fontFamily: 'bebas-neue-pro',
@@ -92,6 +111,11 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center'
+              },
+              '& .MuiMenu-paper': {
+                backgroundColor: 'rgba(0,0,0,.5)',
+                color: '#fff',
+                fontFamily: 'bebas-neue-pro'
               }
             }}
           >
