@@ -1,6 +1,4 @@
 import * as React from 'react';
-import AddIcon from '@mui/icons-material/Add';
-import AddMobile from '../../assets/add-mobile.svg';
 import {
   Button,
   Modal,
@@ -12,8 +10,12 @@ import {
   LinearProgressProps
 } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useAxios from 'axios-hooks';
+import AddIcon from '@mui/icons-material/Add';
+
+import AddMobile from '../../assets/add-mobile.svg';
+import Clip from '../../assets/clip.svg';
 
 async function getBase64(
   file: File,
@@ -109,6 +111,7 @@ export default function UploadModal() {
     setOpen(false);
     setShowSuccess(false);
     setFile(null);
+    setTitle(null);
     setFormValid(false);
     setFile64(null);
   };
@@ -125,14 +128,14 @@ export default function UploadModal() {
     multiple: false
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     sendForm({
       data: {
         title: title || '',
         image: file64 || ''
       }
     });
-  };
+  }, []);
 
   useEffect(() => {
     if (title && title.length > 0 && file64 && file64.length > 0) {
@@ -197,16 +200,17 @@ export default function UploadModal() {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            bgcolor: '#000',
+            bgcolor: '#242424',
             color: '#fff',
-            border: '2px solid #000',
             boxShadow: 24,
             p: 4,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             gap: 6,
-            width: ['90%', '90%', '60%']
+            width: ['100%', '100%', '60%'],
+            height: ['100%', '100%', 'auto'],
+            justifyContent: 'center'
           }}
         >
           {showSuccess ? (
@@ -260,10 +264,11 @@ export default function UploadModal() {
                   fontWeight: 700,
                   lineHeight: '20px',
                   letterSpacing: '4px',
-                  color: '#fff'
+                  color: '#fff',
+                  textAlign: 'center'
                 }}
               >
-                Liteflix The Movie fue correctamente subida.
+                {title} fue correctamente subida.
               </Typography>
               <Button
                 variant="contained"
@@ -312,6 +317,7 @@ export default function UploadModal() {
                     {...getRootProps()}
                     sx={{
                       px: 12,
+                      mx: 2,
                       py: 5,
                       border: '1px dashed #fff',
                       textAlign: 'center',
@@ -327,11 +333,32 @@ export default function UploadModal() {
                         fontFamily: 'bebas-neue-pro',
                         fontSize: 16,
                         fontWeight: 700,
-                        lineHeight: '16px',
-                        letterSpacing: '4px'
+                        lineHeight: '24px',
+                        letterSpacing: '4px',
+                        display: 'flex',
+                        gap: 1,
+                        '& img': {
+                          width: 14,
+                          height: 14,
+                          mt: 0.5,
+                          mr: 1
+                        }
                       }}
                     >
-                      Agregá un archivo o arrastralo y soltalo aquí
+                      <img src={Clip} />
+                      Agregá un archivo
+                      <Typography
+                        sx={{
+                          fontFamily: 'bebas-neue-pro',
+                          fontSize: 16,
+                          fontWeight: 700,
+                          lineHeight: '24px',
+                          letterSpacing: '4px',
+                          display: ['none', 'none', 'block']
+                        }}
+                      >
+                        o arrastralo y soltalo aquí
+                      </Typography>
                     </Typography>
                   </Box>
 
@@ -342,7 +369,8 @@ export default function UploadModal() {
                         fontSize: 16,
                         fontWeight: 700,
                         lineHeight: '16px',
-                        letterSpacing: '4px'
+                        letterSpacing: '4px',
+                        textAlign: 'center'
                       }}
                     >
                       {file}
@@ -374,16 +402,27 @@ export default function UploadModal() {
               <TextField
                 label="Titulo"
                 variant="standard"
-                placeholder='Ej: "El Padrino"'
-                slotProps={{ input: { style: { color: 'white' } } }}
+                placeholder='EJ: "EL PADRINO"'
+                slotProps={{
+                  input: {
+                    style: {
+                      color: 'white',
+                      fontFamily: 'bebas-neue-pro',
+                      fontSize: '16px',
+                      textTransform: 'uppercase'
+                    }
+                  }
+                }}
                 onChange={(e) => setTitle(e.target.value)}
                 disabled={loading}
                 sx={{
+                  display: loading ? 'none' : 'block',
                   fontFamily: 'bebas-neue-pro',
                   '& .MuiFormLabel-root': {
                     fontFamily: 'bebas-neue-pro',
                     fontSize: '16px',
                     color: 'white',
+                    textTransform: 'uppercase',
                     display: 'block',
                     width: '100%',
                     '&.Mui-focused': {
@@ -427,6 +466,29 @@ export default function UploadModal() {
                 onClick={handleSubmit}
               >
                 Subir Pelicula
+              </Button>
+
+              <Button
+                variant="outlined"
+                sx={{
+                  color: 'white',
+                  height: 56,
+                  px: 4,
+                  fontFamily: 'bebas-neue-pro',
+                  fontSize: '18px',
+                  fontWeight: 400,
+                  minWidth: 248,
+                  lineHeight: '21.6px',
+                  letterSpacing: '4px',
+                  backgroundColor: 'rgba(36,36,36,0.5)',
+                  border: '1px solid',
+                  borderColor: 'rgba(255,255,255,0.5)',
+                  borderRadius: 0,
+                  display: ['block', 'block', 'none']
+                }}
+                onClick={handleClose}
+              >
+                Salir
               </Button>
             </>
           )}

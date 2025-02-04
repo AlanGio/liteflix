@@ -10,6 +10,7 @@ import useAxios from 'axios-hooks';
 import React, { useEffect } from 'react';
 import PlayButton from '../../assets/play.svg';
 import Star from '../../assets/star.svg';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 interface Movie {
   id: number;
@@ -47,6 +48,7 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
     sendForm({
       url: services[category]
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
   if (error) return <p>Error!</p>;
@@ -60,7 +62,9 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
   return (
     <Box
       sx={{
-        minWidth: 200
+        minWidth: 200,
+        mt: [1, 1, '20%'],
+        minHeight: 664
       }}
     >
       {loading ? (
@@ -72,20 +76,21 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
             value={category.toString()}
             onChange={handleChange}
             fullWidth
+            IconComponent={KeyboardArrowDownIcon}
             MenuProps={{
               PaperProps: {
                 sx: {
-                  backgroundColor: 'rgba(0,0,0,.5)',
+                  backgroundColor: 'rgba(0,0,0,.8)',
                   color: '#fff',
                   '& .MuiButtonBase-root': {
                     fontFamily: 'bebas-neue-pro',
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: 600,
                     lineHeight: '18px',
                     letterSpacing: '4px',
-                    py: 2,
+                    py: 1.5,
                     ':hover': {
-                      backgroundColor: 'rgba(0,0,0,.5)'
+                      backgroundColor: 'rgba(0,0,0,.9)'
                     }
                   }
                 }
@@ -94,13 +99,14 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
             sx={{
               color: '#fff',
               fontFamily: 'bebas-neue-pro',
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: 600,
               lineHeight: '18px',
               letterSpacing: '4px',
               textAlign: 'center',
               boxShadow: '0',
               height: 40,
+              mb: [2, 0, 0],
               backgroundColor: 'rgba(0,0,0,.5)',
               '& svg': {
                 color: '#fff'
@@ -110,7 +116,11 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
                 boxShadow: '0',
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                '&::before': {
+                  content: '"Ver: "',
+                  color: '#ccc'
+                }
               },
               '& .MuiMenu-paper': {
                 backgroundColor: 'rgba(0,0,0,.5)',
@@ -130,17 +140,14 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
               flexDirection: 'column',
               listStyleType: 'none',
               p: 0,
-              pb: [6, 6, 0]
+              pb: [6, 6, 0],
+              mb: 0
             }}
           >
             {movies.slice(0, 4).map((movie: Movie) => {
-              let imgBg = '';
-              if (movie.backdrop_path) {
-                imgBg = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
-              }
-              if (movie.image) {
-                imgBg = movie.image;
-              }
+              const imgBg = movie.backdrop_path
+                ? `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`
+                : movie.image;
 
               return (
                 <Box
@@ -149,7 +156,7 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
                   onClick={() => handleClickMovie(movie.id)}
                   sx={{
                     width: [327, 327, 220],
-                    height: [172, 172, 146],
+                    height: [172, 160, 140],
                     position: 'relative',
                     display: 'flex',
                     alignItems: 'flex-end',

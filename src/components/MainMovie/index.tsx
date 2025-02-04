@@ -20,7 +20,8 @@ const MainMovie: React.FC<MainMovieProps> = ({
     sx={{
       position: 'relative',
       height: '100vh',
-      animation: 'fadeIn 0.5s'
+      animation: 'fadeIn 0.5s',
+      minHeight: 500
     }}
   >
     <Box
@@ -81,7 +82,7 @@ const MainMovie: React.FC<MainMovieProps> = ({
             justifyContent: 'flex-end',
             alignItems: ['center', 'center', 'flex-start'],
             height: '100%',
-            mb: '15%',
+            mb: [4, 4, '15%'],
             mt: ['210px', '210px', 0],
             animation: 'fadeIn 1s',
             transition: 'all 0.5s ease-in',
@@ -214,7 +215,7 @@ const MainMovie: React.FC<MainMovieProps> = ({
             justifyContent: 'center',
             alignItems: 'flex-start',
             height: '100%',
-            mt: [6, 6, 0]
+            mt: [2, 2, 0]
           }}
         >
           <Slider onClickMovie={onClickMovie} />
