@@ -34,6 +34,7 @@ const Home: React.FC = () => {
           title={movie.original_title}
           background={`${imgPathOriginal}${movie.backdrop_path}`}
           onClickMovie={setSelectedMovie}
+          list={data.results}
         />
       )}
     </>

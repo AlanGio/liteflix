@@ -5,16 +5,27 @@ import Slider from '../Slider';
 import Play from '../../assets/playtriangle.svg';
 import Plus from '../../assets/plus.svg';
 
+export interface Movie {
+  id: number;
+  title: string;
+  backdrop_path?: string;
+  image?: string;
+  vote_average?: number;
+  release_date?: string;
+}
+
 interface MainMovieProps {
   title: string;
   background: string;
   onClickMovie: (id: number) => void;
+  list: Movie[];
 }
 
 const MainMovie: React.FC<MainMovieProps> = ({
   title,
   background,
-  onClickMovie
+  onClickMovie,
+  list
 }) => (
   <Box
     sx={{
@@ -218,7 +229,7 @@ const MainMovie: React.FC<MainMovieProps> = ({
             mt: [2, 2, 0]
           }}
         >
-          <Slider onClickMovie={onClickMovie} />
+          <Slider onClickMovie={onClickMovie} list={list} />
         </Box>
       </Box>
     </Box>

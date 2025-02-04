@@ -11,53 +11,51 @@ import React, { useEffect } from 'react';
 import PlayButton from '../../assets/play.svg';
 import Star from '../../assets/star.svg';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
-interface Movie {
-  id: number;
-  title: string;
-  backdrop_path?: string;
-  image?: string;
-  vote_average?: number;
-  release_date?: string;
-}
+import { Movie } from '../MainMovie';
 
 interface SliderProps {
   onClickMovie: (id: number) => void;
+  list: Movie[];
 }
 
-const services = [
-  'https://api.themoviedb.org/3/movie/now_playing?api_key=6f26fd536dd6192ec8a57e94141f8b20',
-  'https://liteflix-5afefe60246f.herokuapp.com/movies'
-];
-
-const Slider: React.FC<SliderProps> = ({ onClickMovie }) => {
+const Slider: React.FC<SliderProps> = ({ onClickMovie, list }) => {
   const [{ data, loading, error }, sendForm] = useAxios(
     {
-      url: services[0]
+      url: 'https://liteflix-5afefe60246f.herokuapp.com/movies'
     },
     { manual: true }
   );
 
   const [category, setCategory] = React.useState<number>(0);
+  const [movies, setMovies] = React.useState(list);
 
   const handleChange = (event: SelectChangeEvent) => {
     setCategory(Number(event.target.value));
   };
 
   useEffect(() => {
-    sendForm({
-      url: services[category]
-    });
+    if (category === 1) {
+      sendForm({
+        url: 'https://liteflix-5afefe60246f.herokuapp.com/movies'
+      });
+    } else {
+      setMovies(list);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
+
+  useEffect(() => {
+    if (data) {
+      setMovies(data.movies);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   if (error) return <p>Error!</p>;
 
   const handleClickMovie = (id: number) => {
     onClickMovie(id);
   };
-
-  const movies = data ? (data?.results ? data.results : data.movies) : [];
 
   return (
     <Box

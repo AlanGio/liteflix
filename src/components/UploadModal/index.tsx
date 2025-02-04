@@ -13,6 +13,7 @@ import { useDropzone } from 'react-dropzone';
 import { useCallback, useEffect, useState } from 'react';
 import useAxios from 'axios-hooks';
 import AddIcon from '@mui/icons-material/Add';
+import CloseButton from '../../assets/cerrar.svg';
 
 import AddMobile from '../../assets/add-mobile.svg';
 import Clip from '../../assets/clip.svg';
@@ -213,6 +214,18 @@ export default function UploadModal() {
             justifyContent: 'center'
           }}
         >
+          <IconButton
+            aria-label="Menu"
+            onClick={handleClose}
+            sx={{
+              display: ['none', 'none', 'block'],
+              position: 'absolute',
+              top: 12,
+              right: 12
+            }}
+          >
+            <img src={CloseButton} />
+          </IconButton>
           {showSuccess ? (
             <>
               <Typography
