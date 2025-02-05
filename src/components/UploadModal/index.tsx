@@ -10,7 +10,7 @@ import {
   LinearProgressProps
 } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useAxios from 'axios-hooks';
 import AddIcon from '@mui/icons-material/Add';
 import CloseButton from '../../assets/cerrar.svg';
@@ -81,19 +81,21 @@ export default function UploadModal() {
   const [title, setTitle] = useState<string | null>(null);
   const [formValid, setFormValid] = useState<boolean>(false);
   const [file64, setFile64] = useState<string | null>(null);
-  const [progress, setProgress] = useState<number>(1);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [progress, setProgress] = React.useState(10);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prevProgress) =>
-        prevProgress >= 100 ? 10 : prevProgress + 10
-      );
-    }, 800);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
+    if (formValid) {
+      const timer = setInterval(() => {
+        setProgress((prevProgress) =>
+          prevProgress >= 100 ? 10 : prevProgress + 10
+        );
+      }, 800);
+      return () => {
+        clearInterval(timer);
+      };
+    }
+  }, [formValid]);
 
   const [{ data, loading }, sendForm] = useAxios(
     {
@@ -129,14 +131,14 @@ export default function UploadModal() {
     multiple: false
   });
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = () => {
     sendForm({
       data: {
-        title: title || '',
+        title,
         image: file64 || ''
       }
     });
-  }, []);
+  };
 
   useEffect(() => {
     if (title && title.length > 0 && file64 && file64.length > 0) {
