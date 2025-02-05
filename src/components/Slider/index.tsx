@@ -148,129 +148,131 @@ const Slider: React.FC<SliderProps> = ({ onClickMovie, list }) => {
                 : movie.image;
 
               return (
-                <Box
-                  component="li"
-                  key={movie.id}
-                  onClick={() => handleClickMovie(movie.id)}
-                  sx={{
-                    width: [327, 327, 220],
-                    height: [172, 160, 140],
-                    position: 'relative',
-                    display: 'flex',
-                    alignItems: 'flex-end',
-                    cursor: 'pointer',
-                    '&:hover': {
-                      transform: 'scale(1.05)',
-                      transition: 'all 0.3s ease',
-                      '.image': {
-                        boxShadow: 'inset 0 0 0 1000px rgba(0,0,0,.4)'
-                      },
-                      '.play': {
-                        flexDirection: 'row',
-                        justifyContent: 'flex-start',
-                        gap: 1,
-                        '& img': {
-                          width: 24,
-                          height: 24
-                        }
-                      },
-                      '.rating': {
-                        display: 'flex'
-                      }
-                    }
-                  }}
-                >
+                movie.title && (
                   <Box
-                    className="image"
+                    component="li"
+                    key={movie.id}
+                    onClick={() => handleClickMovie(movie.id)}
                     sx={{
-                      backgroundImage: `url(${imgBg})`,
-                      backgroundSize: 'cover',
-                      position: 'absolute',
-                      width: '100%',
-                      height: '100%',
-                      borderRadius: 1,
-                      boxShadow: '0px 0px 60px black'
+                      width: [327, 327, 220],
+                      height: [172, 160, 140],
+                      position: 'relative',
+                      display: 'flex',
+                      alignItems: 'flex-end',
+                      cursor: 'pointer',
+                      '&:hover': {
+                        transform: 'scale(1.05)',
+                        transition: 'all 0.3s ease',
+                        '.image': {
+                          boxShadow: 'inset 0 0 0 1000px rgba(0,0,0,.4)'
+                        },
+                        '.play': {
+                          flexDirection: 'row',
+                          justifyContent: 'flex-start',
+                          gap: 1,
+                          '& img': {
+                            width: 24,
+                            height: 24
+                          }
+                        },
+                        '.rating': {
+                          display: 'flex'
+                        }
+                      }
                     }}
-                  />
-                  <Box sx={{ width: '100%', p: 2 }}>
+                  >
                     <Box
+                      className="image"
                       sx={{
-                        filter: 'drop-shadow( -5px -5px 5px #000 )',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'flex-end',
-                        width: '100%'
+                        backgroundImage: `url(${imgBg})`,
+                        backgroundSize: 'cover',
+                        position: 'absolute',
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 1,
+                        boxShadow: '0px 0px 60px black'
                       }}
-                    >
+                    />
+                    <Box sx={{ width: '100%', p: 2 }}>
                       <Box
                         sx={{
+                          filter: 'drop-shadow( -5px -5px 5px #000 )',
                           display: 'flex',
                           flexDirection: 'column',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: 4,
-                          width: '100%',
-                          mb: 1,
-                          '& img': {
-                            width: 40,
-                            height: 40
-                          }
+                          alignItems: 'flex-end',
+                          width: '100%'
                         }}
-                        className="play"
                       >
-                        <img src={PlayButton} alt="Play" />
-                        <Typography
-                          variant="h3"
-                          sx={{
-                            fontFamily: 'bebas-neue-pro',
-                            fontSize: 16,
-                            fontWeight: 400,
-                            lineHeight: '16px',
-                            letterSpacing: '2px',
-                            textAlign: 'center',
-                            textTransform: 'uppercase',
-                            color: '#fff',
-                            textShadow: '0 0 20px #000'
-                          }}
-                        >
-                          {movie.title}
-                        </Typography>
-                      </Box>
-                      {movie.vote_average && movie.release_date && (
                         <Box
                           sx={{
-                            display: 'none',
-                            gap: 1,
-                            justifyContent: 'space-between',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: 4,
                             width: '100%',
-                            mt: 2
+                            mb: 1,
+                            '& img': {
+                              width: 40,
+                              height: 40
+                            }
                           }}
-                          className="rating"
+                          className="play"
                         >
-                          <Box
-                            sx={{
-                              color: 'white',
-                              letterSpacing: '2px'
-                            }}
-                          >
-                            <img src={Star} />{' '}
-                            {movie.vote_average.toString().substring(0, 3)}
-                          </Box>
+                          <img src={PlayButton} alt="Play" />
                           <Typography
-                            variant="body1"
+                            variant="h3"
                             sx={{
-                              color: 'white',
                               fontFamily: 'bebas-neue-pro',
-                              letterSpacing: '2px'
+                              fontSize: 16,
+                              fontWeight: 400,
+                              lineHeight: '16px',
+                              letterSpacing: '2px',
+                              textAlign: 'center',
+                              textTransform: 'uppercase',
+                              color: '#fff',
+                              textShadow: '0 0 20px #000'
                             }}
                           >
-                            {movie.release_date.substring(0, 4)}
+                            {movie.title}
                           </Typography>
                         </Box>
-                      )}
+                        {movie.vote_average && movie.release_date && (
+                          <Box
+                            sx={{
+                              display: 'none',
+                              gap: 1,
+                              justifyContent: 'space-between',
+                              width: '100%',
+                              mt: 2
+                            }}
+                            className="rating"
+                          >
+                            <Box
+                              sx={{
+                                color: 'white',
+                                letterSpacing: '2px'
+                              }}
+                            >
+                              <img src={Star} />{' '}
+                              {movie.vote_average.toString().substring(0, 3)}
+                            </Box>
+                            <Typography
+                              variant="body1"
+                              sx={{
+                                color: 'white',
+                                fontFamily: 'bebas-neue-pro',
+                                letterSpacing: '2px'
+                              }}
+                            >
+                              {movie.release_date.substring(0, 4)}
+                            </Typography>
+                          </Box>
+                        )}
+                      </Box>
                     </Box>
                   </Box>
-                </Box>
+                )
               );
             })}
           </Box>
